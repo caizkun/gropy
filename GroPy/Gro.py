@@ -1,6 +1,6 @@
-class GroSystem:
+class Gro:
     """
-    wrap the contents in a GROMACS gro file as a class
+    the central class in gropy
     """
     # -- constructor(s) --
     def __init__(self, 
@@ -10,6 +10,9 @@ class GroSystem:
         x=None, y=None, z=None, 
         v_x=None, v_y=None, v_z=None, 
         box=None):
+        """
+        wrap the contents in a GROMACS gro file in a class
+        """
         self.system_name  = system_name or 'This is a Gro System'
         self.num_of_atoms = num_of_atoms or 0
         self.residue_id   = residue_id or []
@@ -32,7 +35,7 @@ class GroSystem:
     # -- file i/o --
     def read_gro_file(self, file_name):
         """
-        read a gro file and store information in a GroSystem object
+        read a gro file and store information in a Gro object
         """
         with open(file_name, 'r') as file_id:
             for i_line, line in enumerate(file_id):
@@ -73,7 +76,7 @@ class GroSystem:
 
     def write_gro_file(self, file_name):
         """
-        write a gro file based on a GroSystem object
+        write a gro file based on a Gro object
         """
         with open(file_name, 'w') as file_id:
             file_id.write("%s\n" % self.system_name)
@@ -135,7 +138,7 @@ class GroSystem:
 #        """
 #        sort atoms by their atom names in the order of provided atom_name_list, moving unspecified atoms to the end
 #        """
-#        system_of_sorted_atoms = GroSystem()
+#        system_of_sorted_atoms = Gro()
 #        for specified_atom_name in atom_name_list:
 #            for i_atom in xrange(self.num_of_atoms):
 #                if self.atom_name[i_atom] == specified_atom_name:

@@ -1,4 +1,4 @@
-# This script is for testing code.
+# This script is for demonstration.
 
 import sys
 
@@ -13,6 +13,7 @@ else:
     out_file = 'output.gro'
 
 
-test_gro = Gro()
-test_gro.read_gro_file(in_file)
-test_gro.write_gro_file(out_file)
+system_gro = Gro()
+system_gro.read_gro_file(in_file)
+system_gro.sort_residues(['CL', 'SOL'])
+system_gro.write_gro_file(out_file)

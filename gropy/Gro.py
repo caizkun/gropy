@@ -151,14 +151,25 @@ class Gro:
         self.v_z[i_atom]          = another_gro_object.v_z[j_atom]
 
 
-## TODO: finish sort
-#    def sort_by_residue_names(self, residue_name_list):
-#        """
-#           sort atoms by residue names in the provided order, leaving the rest of atoms to the end
-#        """
-#        sorted_gro = Gro()
-#        for residue_name in residue_name_list:
-#            sorted_gro.copy_by_residue_names(self, [residue_name])
+    def sort_residues(self, residue_name_list):
+        """
+           sort residues in the provided order, attaching other unspecified residues to the end
+        """
+        sorted_gro = Gro()
+        # copy provided to another
+        for residue_name in residue_name_list:
+            sorted_gro.copy_residues(self, [residue_name])
+        # remove provided
+        self.remove_residues(residue_name_list)
+        # copy unprovided to another
+        for i_atom in xrange(self.num_of_atoms):
+            sorted_gro.copy_atom_entry(self, i_atom)
+        # delete unprovided
+        for i_atom in xrange(self.num_of_atoms):
+            self.remove_atom_entry(0)
+        # copy all back from another
+        for i_atom in xrange(sorted_gro.num_of_atoms):
+            self.copy_atom_entry(sorted_gro, i_atom)
 
 
     # -- additive operations --
@@ -188,7 +199,7 @@ class Gro:
                 self.copy_atom_entry(another_gro_object, i_atom)
 
 
-    def copy_by_atom_names(self, another_gro_object, atom_name_list):
+    def copy_atoms(self, another_gro_object, atom_name_list):
         """
             copy atoms with the provided atom names from another gro object and append to the end of current gro object
         """
@@ -199,7 +210,7 @@ class Gro:
                     break
 
 
-    def copy_by_residue_names(self, another_gro_object, residue_name_list):
+    def copy_residues(self, another_gro_object, residue_name_list):
         """
             copy atoms with the provided residue names from another gro object and append to the end of current gro object
         """
@@ -211,8 +222,7 @@ class Gro:
 
     # TODO: may add to copy atoms with the providied atom names and residue names
 
-
-    ## TODO: python doesn't allow overloading assignment operator "="; add an assignment function
+    # TODO: python doesn't allow overloading assignment operator "="; add an assignment function
     # TODO: add merge systems;
 
 
@@ -248,7 +258,7 @@ class Gro:
             self.remove_atom_entry(atom_indice_to_be_removed[i_atom] - i_atom)  # shift atom indice to match the shrinkage of atom list
 
 
-    def remove_by_atom_names(self, atom_name_list):
+    def remove_atoms(self, atom_name_list):
         """
             remove atoms with the provided atom names
         """
@@ -263,7 +273,7 @@ class Gro:
             self.remove_atom_entry(atom_indice_to_be_removed[i_atom] - i_atom)  # shift atom indice to match the shrinkage of atom list
 
 
-    def remove_by_residue_names(self, residue_name_list):
+    def remove_residues(self, residue_name_list):
         """
             remove atoms with the provided residue names
         """

@@ -30,7 +30,6 @@ class Gro:
 
     # -- deconstructor --
     # not mandatory in python
-    
 
     # -- file i/o --
     def read_gro_file(self, file_name):
@@ -222,8 +221,8 @@ class Gro:
 
     # TODO: may add to copy atoms with the providied atom names and residue names
 
-    # TODO: python doesn't allow overloading assignment operator "="; add an assignment function
-    # TODO: add merge systems;
+    # Python doesn't allow the overloading of assignment operator "=";
+    # In python, copying an object is often achived by utilizing the copy and deepcopy functions in the copy module.
 
 
     # -- subtractive operations --

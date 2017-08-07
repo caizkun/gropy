@@ -1,5 +1,5 @@
 # GroPy
-A Python Library to Manipulate the ".gro" Coordinate File of GROMACS
+#### A Python Library to Manipulate the ".gro" Coordinate File of GROMACS
 
 ##### Developers
 Zhikun Cai, UIUC, caizkun@gmail.com
